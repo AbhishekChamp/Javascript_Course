@@ -1,34 +1,7 @@
 "use strict";
 
-// SCOPING
-
-function clacAge(birthYear) {
-    const age = 2037 - birthYear;
-    console.log(firstName);
-
-    function printAge() {
-        const output = `You are ${age}, born in ${birthYear}`;
-        console.log(output);
-    }
-
-    if (birthYear >= 1981 && birthYear <= 1996) {
-        var millenial = true;
-        const str = `Oh, and you're a millenial, ${firstName}`;
-        console.log(str);
-
-        function add(a, b) {
-            return a + b;
-        }
-        console.log(add(2, 3));
-    }
-
-    console.log(millenial);
-    // console.log(add(2, 3));
-    printAge();
-
-    return age;
-}
-
-const firstName = "Champ";
-
-clacAge(1996);
+console.log("For Scoping refer scoping.js");
+console.log("For Hoisting refer hoisting.js");
+console.log("For This Keyword refer this.js");
+console.log("For Regular Vs Arrow Function refer regularVsArrow.js");
+console.log("For Primitives Vs Objects refer primitivesVsObjects.js");
