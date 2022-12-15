@@ -70,6 +70,7 @@ const game = {
 };
 
 // Solution - 01
+console.log("--------------SOLUTION-01------------");
 const [players1, players2] = game.players;
 const [gk, ...fieldPlayers] = players1;
 const allPlayers = [...players1, ...players2];
@@ -82,3 +83,28 @@ const printGoals = function (...players) {
 printGoals(...game.scored);
 team1 < team2 && console.log("Team 1 is more likely to win");
 team1 > team2 && console.log("Team 2 is more likely to win");
+
+// Soultion - 02
+console.log("--------------SOLUTION-02------------");
+for (const [i, player] of game.scored.entries()) {
+    console.log(`Goal ${i + 1}: ${player}`);
+}
+
+const odds = Object.values(game.odds);
+let average = 0;
+for (const odd of odds) {
+    average += odd;
+}
+average /= odds.length;
+console.log(average);
+
+for (const [team, odd] of Object.entries(game.odds)) {
+    const teamStr = team === "x" ? "draw" : `victory ${game[team]}`;
+    console.log(`Odd of ${teamStr} ${odd}`);
+}
+
+const scorers = {};
+for (const player of game.scored) {
+    scorers[player] ? scorers[player]++ : (scorers[player] = 1);
+}
+console.log(scorers);
