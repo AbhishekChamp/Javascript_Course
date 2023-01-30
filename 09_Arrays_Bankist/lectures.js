@@ -116,5 +116,78 @@ const firstWithdrawl = movements.find((mov) => mov < 0);
 
 const account = accounts.find((acc) => acc.owner === "Jessica Davis");
 
+// Checks for equality
+console.log(movements.includes(-130));
+
+// Checks for condition
+const anyDeposits = movements.some((mov) => mov > 0);
+console.log(anyDeposits);
+
+const allDeposits = movements.every((mov) => mov > 0);
+console.log(allDeposits);
+
+// Flat
+const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+console.log(arr.flat());
+// Returns [1, 2, 3, 4, 5, 6, 7, 8]
+
+const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+console.log(arrDeep.flat());
+// Returns [[1, 2], 3, 4, [5, 6], 7, 8]
+console.log(arrDeep.flat(2));
+// Returns [1, 2, 3, 4, 5, 6, 7, 8]
+
+/*
+const accountMovements = accounts.map(acc => acc.movements)
+console.log(accountMovements)
+const allMovements = accountMovements.flat()
+console.log(allMovements)
+const overalBalance = allMovements.reduce((acc, mov) => acc + mov, 0)
+*/
+
+const overalBalance = accounts
+    .map((acc) => acc.movements)
+    .flat()
+    .reduce((acc, mov) => acc + mov, 0);
+console.log(overalBalance);
+
+// Flatmap
+const overalBalance2 = accounts
+    .flatMap((acc) => acc.movements)
+    .reduce((acc, mov) => acc + mov, 0);
+console.log(overalBalance2);
+
+/* -----------SORTING ------------ */
+
+// Strings
+const owners = ["Jonas", "Zach", "Adam", "Martha"];
+console.log(owners.sort());
+console.log(owners);
+
+// Numbers
+console.log(movements);
+
+// return < 0 => A, B (keep order)
+// return > 0 => B, A (reverse order)
+
+// Ascending Order
+movements.sort((a, b) => {
+    if (a > b) return 1;
+    if (b > a) return -1;
+});
+console.log(movements);
+
+movements.sort((a, b) => a - b);
+console.log(movements);
+
+// Descending Order
+movements.sort((a, b) => {
+    if (a > b) return -1;
+    if (b > a) return 1;
+});
+console.log(movements);
+
+movements.sort((a, b) => b - a);
+
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
