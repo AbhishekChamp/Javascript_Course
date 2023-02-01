@@ -189,5 +189,32 @@ console.log(movements);
 
 movements.sort((a, b) => b - a);
 
+const x = new Array(7);
+const y = new Array(7);
+const z = new Array(7);
+console.log(x);
+// Returns [empty x 7]
+x.fill(1);
+console.log(x);
+// Returns [1, 1, 1, 1, 1, 1, 1]
+y.fill(1, 3);
+console.log(y);
+// Returns [ , , , 1, 1, 1, 1]
+z.fill(1, 3, 5);
+console.log(z);
+// Returns [ , , , 1, 1, , , ]
+
+const a = [1, 2, 3, 4, 5, 6, 7];
+a.fill(25, 2, 6);
+console.log(x);
+// Returns [1, 2, 25, 25, 25, 25, 7]
+
+const b = Array.from({ length: 7 }, () => 1);
+console.log(b);
+// Returns [1, 1, 1, 1, 1, 1, 1]
+
+const c = Array.from({ length: 7 }, (_, i) => i + 1);
+console.log(c);
+// Returns [1, 2, 3, 4, 5, 6, 7]
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
