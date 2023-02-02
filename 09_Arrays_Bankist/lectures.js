@@ -216,5 +216,29 @@ console.log(b);
 const c = Array.from({ length: 7 }, (_, i) => i + 1);
 console.log(c);
 // Returns [1, 2, 3, 4, 5, 6, 7]
+
+const bankDepositSum = accounts
+    .flatMap((acc) => acc.movements)
+    .filter((mov) => mov > 0)
+    .reduce((sum, cur) => sum + cur, 0);
+console.log(bankDepositSum);
+
+const numDeposits1000 = accounts
+    .flatMap((acc) => acc.movements)
+    .reduce((count, cur) => (cur >= 1000 ? count++ : count), 0);
+console.log(numDeposits1000);
+
+const { deposits2, withdrawals } = accounts
+    .flatMap((acc) => acc.movements)
+    .reduce(
+        (sums, cur) => {
+            cur > 0 ? (sums.deposits2 += cur) : (sums.withdrawals += cur);
+            return sums;
+        },
+        { deposits2: 0, withdrawals: 0 },
+    );
+
+console.log(deposits2, withdrawals);
+
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
