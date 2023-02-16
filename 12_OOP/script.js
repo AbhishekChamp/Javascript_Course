@@ -56,3 +56,28 @@ console.log(arr.unique());
 
 const h1 = document.querySelector("h1");
 console.dir((x) => x + 1);
+
+// Class Declaration
+class PersonCl {
+    constructor(firstName, birthYear) {
+        this.firstName = firstName;
+        this.birthYear = birthYear;
+    }
+
+    // Methods will be added to .prototype property
+    calcAge() {
+        console.log(2037 - this.birthYear);
+    }
+}
+
+const userThree = new PersonCl("Coderdeck", 2021);
+console.log(userThree);
+userThree.calcAge();
+
+console.log(userThree.__proto__ === PersonCl.prototype);
+
+PersonCl.prototype.greet = function () {
+    console.log(`Hey ${this.firstName}`);
+};
+
+userThree.greet();
