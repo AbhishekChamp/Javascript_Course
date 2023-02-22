@@ -166,7 +166,7 @@ Student.prototype.introduce = function () {
 
 const mike = new Student("Mike", 2020, "Computer Science");
 mike.introduce();
-mike.calcAge();
+mike.calcAge;
 
 console.log(mike.__proto__);
 console.log(mike.__proto__.__proto__);
@@ -202,3 +202,102 @@ class StudentCl extends PersonCl {
 const martha = new StudentCl("Martha Jones", 2012, "Computer Science");
 martha.introduce();
 martha.calcAge();
+
+const PersonProtoCreate = {
+    calcAge() {
+        console.log(2037 - this.birthYear);
+    },
+
+    init(firstName, birthYear) {
+        this.firstName = firstName;
+        this.birthYear = birthYear;
+    },
+};
+
+const steven = Object.create(PersonProtoCreate);
+
+const StudentProto = Object.create(PersonProto);
+StudentProto.init = function (firstName, birthYear, course) {
+    PersonProto.init.call(this, firstName, birthYear);
+    this.course = course;
+};
+
+StudentProto.introduce = function () {
+    console.log(`My name is ${this.firstName} and I study ${this.course}`);
+};
+
+const jay = Object.create(StudentProto);
+jay.init("Jay", 2010, "Computer Science");
+jay.introduce();
+jay.calcAge();
+
+// Encapsulation : Private Class Fields and Methods
+// Public Fields
+// Private Fields
+// Public Methods
+// Private Methods
+class Account {
+    // Public Fields (instances)
+    locale = navigator.language;
+
+    // Private fields (instances)
+    #movements = [];
+    #pin;
+
+    constructor(owner, currency, pin) {
+        this.owner = owner;
+        this.currency = currency;
+        // Protected property
+        this.#pin = pin;
+        console.log(`Thanks for opening an account, ${owner}`);
+    }
+
+    // Public Methods
+    // Public Interface
+    getMovements() {
+        return this.#movements;
+    }
+
+    deposit(val) {
+        this.#movements.push(val);
+        return this;
+    }
+
+    withdraw(val) {
+        this.deposit(-val);
+        return this;
+    }
+
+    requestLoan(val) {
+        if (this._approveLoan(val)) {
+            this.deposit(val);
+            console.log(`Loan Approved`);
+            return this;
+        }
+    }
+
+    static helper() {
+        console.log(`Helper`);
+    }
+
+    // Private methods
+    // #approveLoan(val) {
+    _approveLoan(val) {
+        return true;
+    }
+}
+
+const acc1 = new Account("Jonas", "EUR", 1111);
+acc1.deposit(250);
+acc1.withdraw(140);
+acc1.requestLoan(1000);
+console.log(acc1.getMovements());
+
+// console.log(acc1.#movements);
+// Returns : SyntaxError: Private field '#movements' must be declared in an enclosing class
+
+Account.helper();
+
+// Chaining
+acc1.deposit(300).deposit(500).withdraw(35).requestLoan(25000).withdraw(4000);
+console.log(acc1.getMovements());
