@@ -54,30 +54,19 @@ const whereAmI = async function () {
         const res = await fetch(`${BASE_URL}name/${dataGeo.country}`);
         if (!resGeo.ok) throw new Error("Problem getting country");
         const data = await res.json();
+        console.log(data);
         renderCountry(data[0]);
-        return `You are in ${dataGeo.city}, ${dataGeo.country}`;
     } catch (err) {
         renderError(`Something went wrong ${err.message}`);
-        throw err;
     }
 };
 
-// console.log("1. Will get location");
-// // const city = whereAmI();
-// // console.log(city);
-// whereAmI().then((city) =>
-//     console
-//         .log(`2: ${city}`)
-//         .catch((err) => console.error(`2: ${err.message}`)),
-// );
-// console.log("3: Finished getting location");
+whereAmI();
 
-(async function () {
-    try {
-        const city = await whereAmI();
-        console.log(`2. ${city}`);
-    } catch (err) {
-        console.log(`2. ${err.message}`);
-    }
-    console.log(`3. Finished getting location`);
-});
+try {
+    let y = 1;
+    const x = 2;
+    x = 3;
+} catch (err) {
+    alert(err.message);
+}
