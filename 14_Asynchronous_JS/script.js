@@ -29,55 +29,27 @@ const renderCountry = function (data, className = "") {
     countriesContainer.style.opacity = 1;
 };
 
-const getPosition = function () {
-    return new Promise(function (resolve, reject) {
-        navigator.geolocation.getCurrentPosition(resolve, reject);
+const getJSON = function (url, errorMsg = "Something went wrong") {
+    return fetch(url).then((response) => {
+        if (!response.ok) throw new Error(`${errorMsg} (${response.status})`);
+        return response.json();
     });
 };
 
-const whereAmI = async function () {
+const get3Countries = async function (c1, c2, c3) {
     try {
-        // Geolocation
-        const pos = await getPosition();
-        const { latitude: lat, longitude: lng } = pos.coords;
-
-        // Reverse Geocoding
-        const resGeo = await fetch(
-            `https://geocode.xyz/${lat},${lng}?geoit=json`,
-        );
-        if (!resGeo.ok) throw new Error("Problem getting location data");
-        const dataGeo = await resGeo.json();
-
-        // Country data
-
-        // fetch(`${BASE_URL}name/${country}`).then(res => console.log(res))
-        const res = await fetch(`${BASE_URL}name/${dataGeo.country}`);
-        if (!resGeo.ok) throw new Error("Problem getting country");
-        const data = await res.json();
-        renderCountry(data[0]);
-        return `You are in ${dataGeo.city}, ${dataGeo.country}`;
+        // const [data1] = await getJSON(`${BASE_URL}name/${c1}`);
+        // const [data2] = await getJSON(`${BASE_URL}name/${c2}`);
+        // const [data3] = await getJSON(`${BASE_URL}name/${c3}`);
+        const data = await Promise.all([
+            getJSON(`${BASE_URL}name/${c1}`),
+            getJSON(`${BASE_URL}name/${c2}`),
+            getJSON(`${BASE_URL}name/${c3}`),
+        ]);
+        console.log(data.map((d) => d[0].capital));
     } catch (err) {
-        renderError(`Something went wrong ${err.message}`);
-        throw err;
+        console.log(err);
     }
 };
 
-// console.log("1. Will get location");
-// // const city = whereAmI();
-// // console.log(city);
-// whereAmI().then((city) =>
-//     console
-//         .log(`2: ${city}`)
-//         .catch((err) => console.error(`2: ${err.message}`)),
-// );
-// console.log("3: Finished getting location");
-
-(async function () {
-    try {
-        const city = await whereAmI();
-        console.log(`2. ${city}`);
-    } catch (err) {
-        console.log(`2. ${err.message}`);
-    }
-    console.log(`3. Finished getting location`);
-});
+get3Countries("portugal", "canada", "republic of India");
